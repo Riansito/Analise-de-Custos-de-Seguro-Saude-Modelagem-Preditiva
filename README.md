@@ -49,7 +49,7 @@ Este projeto tem como objetivo **prever os custos de seguros médicos de pacient
   - **R² Score**
 
 ### 6. 🛠️ Ajuste de Hiperparâmetros
-- Uso de técnicas como **GridSearchCV** ou **RandomizedSearchCV**.
+- Uso de técnicas como **RandomizedSearchCV**.
 - Comparação do desempenho **antes e depois** do ajuste.
 - Seleção do melhor modelo com base no equilíbrio entre **precisão e generalização**.
 
