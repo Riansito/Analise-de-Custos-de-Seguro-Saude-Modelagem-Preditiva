@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.style.use('seaborn-v0_8')
 class AnaliseEDA:
     def __init__(self):
         pass
@@ -28,5 +29,29 @@ class AnaliseEDA:
                     axs[i].text(j, valor, str(valor), fontsize=12, ha='center', va='bottom')
                 axs[i].set_xlabel(coluna)
             plt.suptitle("Distribuição das variaveis categoricas")
+        plt.tight_layout()
+        plt.show()
+    
+   
+    def analiseBivariada(self, df, tipo):
+        colunas = df.select_dtypes(include = tipo).columns
+        fig, axs = plt.subplots(nrows=1, ncols=3, figsize = (15, 5))
+        axs=axs.flatten()
+        if tipo == "number":
+            for i, coluna in enumerate(colunas[:3]):
+                axs[i].scatter(df[coluna], df["charges"])
+                axs[i].set_xlabel(coluna)
+                axs[i].set_ylabel("Charges")
+            plt.suptitle("Relação entre as variaveis numericas em relação a target")
+        else:
+            for i, coluna in enumerate(colunas):
+                agrupamento = df[[coluna, "charges"]].groupby(coluna).mean().sort_values(by = "charges", ascending = False).reset_index()
+                agrupamento.columns = [coluna, "Média"]
+                axs[i].bar(agrupamento[coluna], agrupamento["Média"])
+                for j, valor in enumerate(agrupamento["Média"]):
+                    mediaFormatada = f"R$ {valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+                    axs[i].text(j, valor, mediaFormatada, fontsize=12, ha='center', va='bottom')
+                axs[i].set_xlabel(coluna)
+            plt.suptitle("Relação entre as variaveis categóricas em relação a target")
         plt.tight_layout()
         plt.show()
