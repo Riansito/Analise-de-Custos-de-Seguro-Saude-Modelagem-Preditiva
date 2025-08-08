@@ -51,8 +51,8 @@ class AvaliacaoMD:
     
     def avaliacaoDeEscalaOriginal(self, y_true_log, y_pred_log):
         # Conversão para escala original
-        y_true_orig = np.exp(y_true_log)
-        y_pred_orig = np.exp(y_pred_log)
+        y_true_orig = np.expm1(y_true_log)
+        y_pred_orig = np.expm1(y_pred_log)
         
         # Cálculo das métricas
         metrics = {
